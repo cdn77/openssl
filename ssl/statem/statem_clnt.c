@@ -2933,7 +2933,7 @@ static int tls_construct_cke_gost(SSL *s, WPACKET *pkt, int *al)
         dgst_nid = NID_id_GostR3411_2012_256;
 
     /*
-     * Get server sertificate PKEY and create ctx from it
+     * Get server certificate PKEY and create ctx from it
      */
     peer_cert = s->session->peer;
     if (!peer_cert) {
