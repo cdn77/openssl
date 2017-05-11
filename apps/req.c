@@ -290,7 +290,6 @@ int req_main(int argc, char **argv)
             break;
         case OPT_X509:
             x509 = 1;
-            newreq = 1;
             break;
         case OPT_DAYS:
             days = atoi(opt_arg());
@@ -332,6 +331,9 @@ int req_main(int argc, char **argv)
     argc = opt_num_rest();
     if (argc != 0)
         goto opthelp;
+
+    if (x509 && infile == NULL)
+        newreq = 1;
 
     if (!nmflag_set)
         nmflag = XN_FLAG_ONELINE;
@@ -587,7 +589,7 @@ int req_main(int argc, char **argv)
         }
     }
 
-    if (newreq) {
+    if (newreq || x509) {
         if (pkey == NULL) {
             BIO_printf(bio_err, "you need to specify a private key\n");
             goto end;
