@@ -9,6 +9,10 @@
 
  Changes between 1.1.0e and 1.1.1 [xx XXX xxxx]
 
+  *) Ignore the '-named_curve auto' value for compatibility of applications
+     with OpenSSL 1.0.2.
+     [Tomas Mraz <tmraz@fedoraproject.org>]
+
   *) Add EC_KEY_get0_engine(), which does for EC_KEY what RSA_get0_engine()
      does for RSA, etc.
      [Richard Levitte]
