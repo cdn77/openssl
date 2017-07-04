@@ -153,12 +153,20 @@ script:
     - if [ -n "$DESTDIR" ]; then
           cd _build;
       fi
-    - $make update;
+    - if $make update; then
+          echo -e '+\057 MAKE UPDATE OK';
+      else
+          echo -e '+\057 MAKE UPDATE FAILED'; false;
+      fi;
       git diff --quiet
     - if [ -n "$CHECKDOCS" ]; then
           $make doc-nits;
       fi
-    - $make
+    - if $make ; then
+          echo -e '+\057\057 MAKE OK';
+      else
+          echo -e '+\057\057 MAKE FAILED'; false;
+      fi;
     - if [ -z "$BUILDONLY" ]; then
           if [ -n "$CROSS_COMPILE" ]; then
               sudo dpkg --add-architecture i386;
@@ -168,11 +176,19 @@ script:
           fi;
           HARNESS_VERBOSE=yes BORING_RUNNER_DIR=$top/boringssl/ssl/test/runner make test;
       else
-          $make build_tests;
+          if $make build_tests; then
+              echo -e '+\057\057\075 MAKE BUILD_TESTS OK';
+          else
+              echo -e '+\057\057\075 MAKE BUILD_TESTS FAILEd'; false;
+          fi;
       fi
     - if [ -n "$DESTDIR" ]; then
           mkdir "$top/$DESTDIR";
-          $make install install_docs DESTDIR="$top/$DESTDIR";
+          if $make install install_docs DESTDIR="../$DESTDIR"; then
+              echo -e '+\057\057\057\057 MAKE INSTALL_DOCS OK';
+          else
+              echo -e '+\057\057\057\057 MAKE INSTALL_DOCS FAILED'; false;
+          fi;
       fi
     - cd $top
 
