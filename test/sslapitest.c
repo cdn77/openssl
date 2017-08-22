@@ -1679,7 +1679,7 @@ static int test_custom_exts(int tst)
     }
 
     if (!create_ssl_objects(sctx, cctx, &serverssl, &clientssl, NULL, NULL)
-            || !create_ssl_connection(serverssl, clientssl)) {
+            || !create_ssl_connection(serverssl, clientssl, SSL_ERROR_NONE)) {
         printf("Cannot create SSL connection\n");
         goto end;
     }
@@ -1709,7 +1709,7 @@ static int test_custom_exts(int tst)
 
     if (!create_ssl_objects(sctx, cctx, &serverssl, &clientssl, NULL, NULL)
             || !SSL_set_session(clientssl, sess)
-            || !create_ssl_connection(serverssl, clientssl)) {
+            || !create_ssl_connection(serverssl, clientssl, SSL_ERROR_NONE)) {
         printf("Cannot create resumption connection\n");
         goto end;
     }

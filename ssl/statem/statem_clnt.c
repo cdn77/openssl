@@ -986,9 +986,6 @@ WORK_STATE ossl_statem_client_post_process_message(SSL *s, WORK_STATE wst)
 
     case TLS_ST_CR_CERT_REQ:
         return tls_prepare_client_certificate(s, wst);
-
-    default:
-        break;
     }
 }
 
