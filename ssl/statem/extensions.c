@@ -631,7 +631,7 @@ int tls_construct_extensions(SSL *s, WPACKET *pkt, unsigned int context,
                 * extensions length bytes to a ClientHello/ServerHello in SSLv3
                 */
             || ((context & (EXT_CLIENT_HELLO | EXT_TLS1_2_SERVER_HELLO)) != 0
-               && s->version == SSL3_VERSION
+               && s->version <= TLS1_1_VERSION
                && !WPACKET_set_flags(pkt,
                                      WPACKET_FLAGS_ABANDON_ON_ZERO_LENGTH))) {
         SSLerr(SSL_F_TLS_CONSTRUCT_EXTENSIONS, ERR_R_INTERNAL_ERROR);
